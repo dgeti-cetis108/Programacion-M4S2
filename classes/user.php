@@ -1,4 +1,6 @@
 <?php
+require_once 'conexion.php';
+
 class User {
     // Se define una propiedad por cada campo de la tabla users
     // de preferencia con el mismo nombre de los campos de la tabla
@@ -21,6 +23,9 @@ class User {
             
             // ejecutar la consulta
             $rst = $conn->query($sql);
+
+            // cerrar la conexion
+            $conn->close();
             
             // evaluar si regresa registros
             if ($rst->num_rows == 1) {

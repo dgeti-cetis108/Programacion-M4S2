@@ -1,15 +1,13 @@
 <?php
-// Incluir los archivos conexion.php y user.php
-require 'classes/conexion.php';
-require 'classes/user.php';
+// iniciar o continuar una sesión
+session_start();
 
-// llamar al método estático Login de la clase User
-// pasando valores de usuario y contraseña
-$user = User::Login('admin','123');
-
-// evaluar el resultado
-if (isset($user)) {
-    echo "Acceso correcto: Bienvenido $user->firstname $user->lastname.";
+// Para validar si hay una sesión activa de forma sencilla
+// se revisa si existe una variable de sesión llamada username
+if (isset($_SESSION['username'])) {
+    // en caso de haber una sesión activa muestra el enlace a logout.php
+    echo '<a href="logout.php">Cerrar sesión de '.$_SESSION['username'].'</a>';
 } else {
-    echo 'Usuario y/o contraseña incorrecto.';
+    // en caso de no haber una sesión activa muestra el enlace a login.php
+    echo '<a href="login.php">Iniciar sesión</a>';
 }
