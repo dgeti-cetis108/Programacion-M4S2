@@ -1,24 +1,15 @@
 <?php
-// Incluir el archivo conexion.php
+// Incluir los archivos conexion.php y user.php
 require 'classes/conexion.php';
+require 'classes/user.php';
 
-try {
-    // Crear una Conexion
-    $conn = new Conexion();
-    
-    // Definir la consulta (query) SQL
-    $sql = 'select * from users where id = 1';
-    
-    // Ejecutar la consulta
-    $rst = $conn->query($sql);
-    
-    // Evaluar el resultado, num_rows = número de registros encontrados
-    if ($rst->num_rows == 1) {
-        echo '<h3 style="color:blue">Conexión satisfactoria: Usuario encontrado</h3>';
-    } else {
-        echo '<h3 style="color:red">Conexión satisfactoria: Usuario no encontrado</h3>';
-    }
-} catch(Exception $ex) {
-    // Si algo falla y se lanza una excepción aqui es capturada y mostrada
-    echo "Excepción: $ex";
+// llamar al método estático Login de la clase User
+// pasando valores de usuario y contraseña
+$user = User::Login('admin','123');
+
+// evaluar el resultado
+if (isset($user)) {
+    echo "Acceso correcto: Bienvenido $user->firstname $user->lastname.";
+} else {
+    echo 'Usuario y/o contraseña incorrecto.';
 }
